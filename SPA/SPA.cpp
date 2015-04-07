@@ -82,7 +82,7 @@ class SPAVisitor : public RecursiveASTVisitor<SPAVisitor> {
                 //    return SideEffect;
                 //}
                 if(childIndex!=0 && this->lvaluelvl > 0){ // this is not a declaration of the function called
-                  conditionalAdd.addConditionalConstraint(*(this->currentFunDecl), static_cast<NamedDecl>(*(static_cast<DeclRefExpr*>(*&*(parent->child_begin()->child_begin()))->getDecl())), childIndex, static_cast<NamedDecl>(*(S->getDecl())));
+                  conditionalAdd.addConditionalConstraint(this->currentFunDecl, static_cast<NamedDecl*>(static_cast<DeclRefExpr*>(*&*(parent->child_begin()->child_begin()))->getDecl()), childIndex, static_cast<NamedDecl>(*(S->getDecl())));
                 }
                 this->lvaluelvl--;
                 return None;
