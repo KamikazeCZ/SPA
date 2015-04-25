@@ -30,6 +30,7 @@ class ConditionalAdd{
   public:
     void addConditionalConstraint(clang::NamedDecl *funDecl, clang::NamedDecl *constraintFunDecl, int argIndex, clang::NamedDecl varDecl); // (function to add constraints to, function side effects of which will be added)
     void execute(); // iteratively (over i and over functions) add constraints as long as they change
+    void dump();
 };
 
 ////////////////////////////////////////////////////////////
@@ -39,6 +40,19 @@ void ConditionalAdd::addConditionalConstraint(clang::NamedDecl *funDecl, clang::
   if(funcAdds.find(funDecl)==funcAdds.end()){
     funcAdds[funDecl]=std::vector<clang::NamedDecl*>();
     funcAdds[funDecl].push_back(constraintFunDecl);
+  }else{
+    funcAdds[funDecl].push_back(constraintFunDecl);
   }
   std::cout << funDecl->getNameAsString() << " gets side effect to it's " << argIndex << ". argument declared within it as '" << varDecl.getNameAsString() << "' if it has side effect in " << constraintFunDecl->getNameAsString() << " (side effect type will be kept)." << std::endl;
+  this->dump();
+}
+
+void ConditionalAdd::dump(){
+  std::cout << "Cond dump begin >>" << std::endl;
+  for(std::map<clang::NamedDecl*, std::vector<clang::NamedDecl*> >::iterator i = funcAdds.begin(); i != funcAdds.end(); ++i) {
+    for(std::vector<clang::NamedDecl*>::iterator j = i->second.begin(); j != i->second.end(); ++j){
+      std::cout << "Cond: " << i->first->getNameAsString() << " <- " << (*j)->getNameAsString() << std::endl;
+    }
+  }
+  std::cout << " << Cond dump end" << std::endl;
 }
