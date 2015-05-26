@@ -28,8 +28,6 @@
 #include "LvalueTable.cpp"
 #include "ConditionalAdd.cpp"
 
-#define FILENAME "SPA_constraints.txt"
-
 
 namespace {
 
