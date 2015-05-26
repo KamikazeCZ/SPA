@@ -51,7 +51,7 @@ void ConditionalAdd::dump(){
   std::cout << "Cond dump begin >>" << std::endl;
   for(std::map<clang::NamedDecl*, std::vector<FunctionConditionalAdd> >::iterator i = funcAdds.begin(); i != funcAdds.end(); ++i) {
     for(std::vector<FunctionConditionalAdd>::iterator j = i->second.begin(); j != i->second.end(); ++j){
-      std::cout << "Cond: " << i->first->getNameAsString() << " <- " << j->getDeclaredAs().getNameAsString() << std::endl;
+      std::cout << "Cond: " << i->first->getNameAsString() << " <- " << j->getDeclaredAs().getNameAsString() << "(if " << j->getArgIndex() << " in " << j->getConstraintFunDecl()->getNameAsString() << ")" << std::endl;
     }
   }
   std::cout << " << Cond dump end" << std::endl;
