@@ -42,4 +42,4 @@ debugrun: debugrun.sh
 constraints:
 	build/Release+Asserts/bin/clang -c -std=c11 -Wall -W -pedantic -g -Xclang -load -Xclang build/Release+Asserts/lib/libSPA.so -Xclang -add-plugin -Xclang SPA SPA/examples/function2.c -o TEST
 ast:
-	build/Release+Asserts/bin/clang -std=c11 -Xclang -ast-dump -fsyntax-only SPA/examples/array3N.c
+	build/Release+Asserts/bin/clang -std=c11 -Xclang -ast-dump -fsyntax-only SPA/examples/function2.c

@@ -217,6 +217,12 @@ class SPAVisitor : public RecursiveASTVisitor<SPAVisitor> {
         bool VisitNamedDecl(NamedDecl *D) {
             if(D->isFunctionOrFunctionTemplate()){
                 this->currentFunDecl = D;
+                unsigned parNum = static_cast<clang::FunctionDecl*>(this->currentFunDecl)->getNumParams();
+                std::cout << "In function " << this->currentFunDecl->getNameAsString() << std::endl;
+                for(unsigned i = 0; i<parNum; ++i){
+                  std::cout << static_cast<clang::FunctionDecl*>(this->currentFunDecl)->parameters()[i]->getQualifiedNameAsString() << std::endl;
+                }
+                std::cout << "--" << std::endl;
                 DEBUG("In function " << this->currentFunDecl->getNameAsString());
                 this->updateParentMap = true;
             }
