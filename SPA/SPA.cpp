@@ -19,6 +19,7 @@
 #include "llvm/Support/raw_ostream.h"
 #include "clang/AST/RecursiveASTVisitor.h"
 #include "clang/Frontend/CodeGenOptions.h"
+#include "clang/Analysis/CFG.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -186,6 +187,13 @@ class SPAVisitor : public RecursiveASTVisitor<SPAVisitor> {
         }
 
         bool VisitStmt(Stmt *S){
+            if(currentFunDecl->getNameAsString() == std::string("main")){
+              std::cout << "Control flow \\/ \\/ \\/ \\/" << std::endl;
+              const CFG::BuildOptions *BO = new CFG::BuildOptions();
+              static std::unique_ptr<CFG> CFG = CFG::buildCFG(currentFunDecl, S, &(CI.getASTContext()), *BO);
+              CFGBlock CFGB = CFG->getEntry();
+              std::cout << "Control flow  ^  ^  ^  ^" << std::endl;
+            }
             //change the root node if processing new function
             if(this->updateParentMap){
                 this->updateParentMap = false;
